@@ -7,8 +7,8 @@ let player;
 
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
-        height: '200',
-        width: '200',
+        height: '150',
+        width: '150',
         videoId: 'ZIJtvsf8uCc', // sample video
         events: {
             'onReady': onPlayerReady,
