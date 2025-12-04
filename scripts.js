@@ -1,8 +1,18 @@
-// Data
+/*
+ *  Utils
+ */
+
+async function sleep(ms) {
+
+}
+
+/*
+ *  Data
+ */
 
 const playlist = [
     {
-        'videoId': '', 
+        'videoId': 'cb61AVsxD34', 
         'streetviewIds': [
 
         ],
@@ -21,18 +31,25 @@ const playlist = [
     },
 ];
 
-//
-const previousVideoBtn = document.getElementById('previous-video-btn');
-const nextVideoBtn = document.getElementById('next-video-btn');
-let currentVideoIdx = 0;
-let player;
+/*
+ *  Global Objects
+ */
 
-if (currentVideoIdx === 0) {
-    previousVideoBtn.disabled = true;
+const svPlayer = {};
+svPlayer.mask = document.getElementById('streetview-mask');
+svPlayer.iframe = document.getElementById('streetview-iframe');
+svPlayer.play = function() {
+
 }
-if (playlist.length === 1) {
-    nextVideoBtn.disabled = true;
+svPlayer.stop = function () {
+
 }
+
+const streetviewMask = document.getElementById('streetview-mask');
+// const previousVideoBtn = document.getElementById('previous-video-btn');
+// const nextVideoBtn = document.getElementById('next-video-btn');
+// let currentVideoIdx = 0;
+let ytPlayer;
 
 // Load IFrame Player API asynchronously
 const tag = document.createElement('script');
@@ -41,23 +58,26 @@ document.head.appendChild(tag);
 
 
 function onYouTubeIframeAPIReady() {
-    player = new YT.Player('player', {
+    ytPlayer = new YT.Player('player', {
         height: '150',
         width: '150',
         videoId: playlist[currentVideoIdx]['videoId'],
         events: {
+            'onStateChange': onPlayerStateChange
         }
     });
 }
 
-previousVideoBtn.addEventListener('click', function(event) {
-    currentVideoIdx += 1;
-});
+function onPlayerStateChange(event) {
 
-nextVideoBtn.addEventListener('click', function(event) {
-    currentVideoIdx -= 1;
-});
+    if (event.target === ytPlayer) {
+        if (event.data === YT.PlayerState.PLAYING) {
+            streetviewPlayer.play();
+        } else if (event.data === YT.PlayerState.PAUSED) {
+            streetviewPlayer.stop();
+        } else if (event.data === YT.PlayerState.ENDED) {
+            streetviewPlayer.stop();
+        }
+    }
+}
 
-streetviewMask = document.getElementById('streetview-mask');
-streetviewMask.classList.remove('opacity-0');
-streetviewMask.classList.add('opacity-75');
