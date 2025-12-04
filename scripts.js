@@ -12,7 +12,7 @@ async function sleep(ms) {
 
 const playlist = [
     {
-        'videoId': 'cb61AVsxD34', 
+        'videoId': '8WsfzwykBO4', 
         'streetviewIds': [
 
         ],
